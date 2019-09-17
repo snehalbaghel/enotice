@@ -6,12 +6,13 @@ from app.main.model.user import User
 
 def save_new_user(data):
     user = User.query.filter_by(email=data['email']).first()
+    print(user)
     if not user:
         new_user = User(
+            public_id=str(uuid.uuid4()),
             email=data['email'],
             username=data['username'],
             password=data['password'],
-            public_id=str(uuid.uuid4())
         )
         save_changes(new_user)
         response = {
@@ -36,5 +37,6 @@ def get_user(public_id):
 
 
 def save_changes(changes):
+    print("saving")
     db.session.add(changes)
     db.session.commit()

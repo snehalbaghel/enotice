@@ -9,10 +9,10 @@
 
 ## Mirations
 
-```python
+```bash
 python manage.py db migrate --message 'migration message'
 ```
-```python
+```bash
 python manage.py db upgrade
 ```
 

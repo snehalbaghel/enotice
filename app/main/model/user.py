@@ -9,7 +9,7 @@ class User(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
     username = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(100))
+    password_hash = db.Column(db.String(100))
     public_id = db.Column(db.String(100))
 
     @property
@@ -18,10 +18,10 @@ class User(db.Model):
 
     @password.setter
     def password(self, password):
-        self.password = flask_bcrypt.generate_password_hash(password).decode('utf-8')
+        self.password_hash = flask_bcrypt.generate_password_hash(password).decode('utf-8')
 
     def check_password(self, password):
-        return flask_bcrypt.check_password_hash(self.password, password)
+        return flask_bcrypt.check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return "<User '{}'>".format(self.username)
