@@ -15,11 +15,7 @@ def save_new_user(data):
             password=data['password'],
         )
         save_changes(new_user)
-        response = {
-            'status': 'success',
-            'message': 'Successfully registered.'
-        }
-        return response, 201
+        return generate_token(new_user)
     else:
         response = {
             'status': 'fail',
@@ -34,6 +30,29 @@ def get_all_users():
 
 def get_user(public_id):
     return User.query.filter_by(public_id=public_id).first()
+
+
+def get_user_events():
+    pass
+
+
+def generate_token(user):
+    try:
+        # generate the auth token
+        auth_token = user.encode_auth_token(user.id)
+        response = {
+            'status': 'success',
+            'message': 'Successfully registered',
+            'Authorization': auth_token.decode()
+        }
+        return response, 201
+    except Exception as e:
+        print(e)
+        response = {
+            'status': 'fail',
+            'message': 'Some error occurred. Please try again.'
+        }
+        return response, 401
 
 
 def save_changes(changes):

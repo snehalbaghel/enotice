@@ -12,11 +12,7 @@ flask-restplus = "*"
 flask-migrate = "*"
 pyjwt = "*"
 flask-script = "*"
-mysqlclient = "*"
-mysql-connector = "*"
-mysql-python = "*"
 pymysql = "*"
-mysql-connector-python = "*"
 
 [requires]
 python_version = "3.7"
