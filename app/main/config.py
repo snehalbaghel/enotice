@@ -13,6 +13,14 @@ class DevConfig(Config):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
+class TestConfig(Config):
+    DEBUG = True
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:student@localhost/enotice'
+    PRESERVE_CONTEXT_ON_EXCEPTION = False
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
 class ProdConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DB_URI')
@@ -20,6 +28,7 @@ class ProdConfig(Config):
 
 config_factory = dict(
     dev=DevConfig,
+    test=TestConfig,
     prod=ProdConfig
 )
 
