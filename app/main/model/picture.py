@@ -8,4 +8,4 @@ class Picture(db.Model):
     __tablename__ = 'picture'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     description = db.Column(db.Text, nullable=True, default=None)
-    # data = db.Column(db.La)
+    path = db.Column(db.String(250), nullable=False)

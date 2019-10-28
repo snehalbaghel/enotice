@@ -1,8 +1,5 @@
 from .. import db
 import datetime
-# from sqlalchemy import ForeignKey
-# from sqlalchemy.orm import relationship
-# from flask_sqlalchemy import ForeignKey, relationship
 
 
 class Event(db.Model):
@@ -18,12 +15,12 @@ class Event(db.Model):
     time = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship("User", back_populates="events")
-    # picture_id = db.Column(db.Integer, ForeignKey('picture.id'),
-    #                        default=None)
+    picture_id = db.Column(db.Integer, db.ForeignKey('picture.id'),
+                            default=None)
     link = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now)
     updated_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now,
-                           onupdate=datetime.datetime.now)
+                            onupdate=datetime.datetime.now)
 
     def __repr__(self):
         return "<Event '{}'>".format(self.id)

@@ -13,7 +13,8 @@ class UserDto:
         'password': fields.String(
             required=True,
             description='user password'),
-        'pubic_id': fields.String(description='user identifier')
+        'pubic_id': fields.String(description='user identifier'),
+        'admin': fields.Boolean(description='is the user an admin')
     })
 
 
@@ -40,9 +41,9 @@ class RequestDto:
     api = Namespace('request', description='request related operations')
     request = api.model('request_details', {
         'event_id': fields.String(required=True,
-                                  description='The event id associated with the request'),
+                                description='The event id associated with the request'),
         'status': fields.String(required=False,
                                 description='Status of request'),
         'remarks': fields.String(required=False,
-                                 description='Remarks for the event')
+                                description='Remarks for the event')
     })

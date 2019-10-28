@@ -14,9 +14,9 @@ class Request(db.Model):
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now)
     updated_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now,
-                           onupdate=datetime.datetime.now)
+                            onupdate=datetime.datetime.now)
     status = db.Column(db.Enum(*RequestStatus, name='status'),
-                       default='pending', nullable=False)
+                        default='pending', nullable=False)
     reviewed_by = db.Column(db.Integer, db.ForeignKey('user.id'))
     remarks = db.Column(db.Text)
 
