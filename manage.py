@@ -6,7 +6,7 @@ from flask_script import Manager
 
 from app import blueprint
 from app.main import create_app, db
-from app.main.model import user, blacklist, event, event_tag, tag, picture, request
+from app.main.model import user, blacklist, event, event_tag, tag, picture, request, review
 
 
 app = create_app(os.getenv('EN_MODE') or 'dev')

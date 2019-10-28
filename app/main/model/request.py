@@ -8,7 +8,7 @@ class Request(db.Model):
     """
     __tablename__ = 'request'
 
-    RequestStatus = ['approved', 'rejected', 'pending']
+    RequestStatus = ['approved', 'rejected', 'pending', 'review']
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
