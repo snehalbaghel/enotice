@@ -10,7 +10,7 @@ class UserDto:
         'username': fields.String(
             required=True,
             description='user\'s username'),
-        'pubic_id': fields.String(description='user\'s public identifier'),
+        'public_id': fields.String(description='user\'s public identifier'),
         'admin': fields.Boolean(description='is the user an admin')
     })
 
@@ -43,4 +43,15 @@ class RequestDto:
                                 description='Status of request'),
         'remarks': fields.String(required=False,
                                 description='Remarks for the event')
+    })
+
+
+class AuthResponseDto:
+    api = Namespace('auth', description='auth response')
+    auth_response = api.model('auth_response', {
+        'status': fields.String(required=True,
+                                description='success/failure of request'),
+        'message': fields.String(required=True, description='additional info'),
+        'Authorization': fields.String(required=False, description='jwt token'),
+        'user': fields.Nested(UserDto.user, required=False, description='user profile')
     })

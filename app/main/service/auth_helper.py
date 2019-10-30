@@ -14,6 +14,7 @@ class Auth:
                         'status': 'success',
                         'message': 'Successfully logged in.',
                         'Authorization': auth_token.decode(),
+                        'user': user
                     }
                     return response, 200
             else:

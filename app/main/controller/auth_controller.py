@@ -1,11 +1,12 @@
 from flask import request
-from flask_restplus import Resource
+from flask_restplus import Resource, marshal
 
 from app.main.service.auth_helper import Auth
-from ..util.dto import AuthDto
+from ..util.dto import AuthDto, AuthResponseDto
 
 api = AuthDto.api
 user_auth = AuthDto.user_auth
+auth_resp = AuthResponseDto.auth_response
 
 
 @api.route('/login')
@@ -18,7 +19,8 @@ class UserLogin(Resource):
     def post(self):
         # get the post data
         post_data = request.json
-        return Auth.login_user(data=post_data)
+        resp, code = Auth.login_user(data=post_data)
+        return marshal(resp, auth_resp), code
 
 
 @api.route('/logout')
