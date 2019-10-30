@@ -10,5 +10,4 @@ class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
     reviewer_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    review = db.String(db.Text, nullable=False)
-    
+    review = db.Column(db.Text, nullable=False)

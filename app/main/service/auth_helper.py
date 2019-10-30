@@ -13,7 +13,7 @@ class Auth:
                     response = {
                         'status': 'success',
                         'message': 'Successfully logged in.',
-                        'Authorization': auth_token.decode()
+                        'Authorization': auth_token.decode(),
                     }
                     return response, 200
             else:

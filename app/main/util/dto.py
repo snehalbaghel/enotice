@@ -6,14 +6,11 @@ class UserDto:
     user = api.model('user', {
         'email': fields.String(
             required=True,
-            description='user email address'),
+            description='user\'s email address'),
         'username': fields.String(
             required=True,
-            description='user username'),
-        'password': fields.String(
-            required=True,
-            description='user password'),
-        'pubic_id': fields.String(description='user identifier'),
+            description='user\'s username'),
+        'pubic_id': fields.String(description='user\'s public identifier'),
         'admin': fields.Boolean(description='is the user an admin')
     })
 
