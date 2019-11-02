@@ -25,7 +25,7 @@ class Event(Resource):
         return save_new_event(data)
 
     @api.doc('list of approved events')
-    @api.marshal_list_with(_event, envelope='data')
+    @api.marshal_list_with(_event)
     def get(self):
         """List of all approved events"""
         return get_approved_events()
@@ -34,7 +34,7 @@ class Event(Resource):
 @api.route('/pending')
 class PendingEventList(Resource):
     @api.doc('list of pending events')
-    @api.marshal_list_with(_event, envelope='data')
+    @api.marshal_list_with(_event)
     @admin_token_required
     def get(self):
         """List of all pending events"""

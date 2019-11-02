@@ -9,7 +9,8 @@ class Event(db.Model):
     __tablename__ = "event"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(255), nullable=False)
+    title = db.Column(db.String(60), nullable=False)
+    subtitle = db.Column(db.String(60), nullable=False)
     description = db.Column(db.Text, nullable=False)
     venue = db.Column(db.Text, nullable=False)
     time = db.Column(db.DateTime, nullable=False)

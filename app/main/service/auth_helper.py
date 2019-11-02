@@ -32,14 +32,17 @@ class Auth:
             return response, 500
 
     @staticmethod
-    def logout_user(data):
-        if data:
-            auth_token = data.split(" ")[1]
+    def logout_user(header):
+        if header:
+            auth_token = header.split(" ")[1]
         else:
             auth_token = ''
         if auth_token:
+
             resp = User.decode_auth_token(auth_token)
+
             if not isinstance(resp, str):
+                # save to blacklist
                 return save_token(token=auth_token)
             else:
                 response = {

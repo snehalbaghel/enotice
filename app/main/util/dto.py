@@ -27,6 +27,7 @@ class EventDto:
     api = Namespace('event', description='event related operations')
     event = api.model('event_details', {
         'title': fields.String(required=True, description='The event title'),
+        'subtitle': fields.String(required=True, description='The event subtitle'),
         'description': fields.String(required=True, description='The event description'),
         'venue': fields.String(required=True, description='The event venue'),
         'time': fields.String(required=True, description='The event time'),

@@ -7,6 +7,7 @@ import datetime
 def save_new_event(data):
     new_event = Event(
         title=data['title'],
+        subtitle=data['subtitle'],
         description=data['description'],
         venue=data['venue'],
         time=data['time'],
