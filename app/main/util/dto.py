@@ -4,13 +4,13 @@ from flask_restplus import Namespace, fields
 class UserDto:
     api = Namespace('user', description='user related operations')
     user = api.model('user', {
+        'public_id': fields.String(description='user\'s public identifier'),
         'email': fields.String(
             required=True,
             description='user\'s email address'),
         'username': fields.String(
             required=True,
             description='user\'s username'),
-        'public_id': fields.String(description='user\'s public identifier'),
         'admin': fields.Boolean(description='is the user an admin')
     })
 
@@ -26,6 +26,7 @@ class AuthDto:
 class EventDto:
     api = Namespace('event', description='event related operations')
     event = api.model('event_details', {
+        'id': fields.String(description='event\'s id'),
         'title': fields.String(required=True, description='The event title'),
         'subtitle': fields.String(required=True, description='The event subtitle'),
         'description': fields.String(required=True, description='The event description'),

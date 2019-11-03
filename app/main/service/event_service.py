@@ -13,7 +13,6 @@ def save_new_event(data):
         time=data['time'],
         user_id=data['user_id'],
         link=data['link'],
-        created_at=str(datetime.datetime.now())
     )
     save_changes(new_event)
 
@@ -30,10 +29,14 @@ def get_pending_events():
     return events, 200
 
 
-def get_approved_events():
+def get_published_events():
     events = Event.query.join(Request).filter(Request.status == 'approved')
     return events, 200
 
+
+def get_event(id):
+    # TODO: return only published event
+    return Event.query.filter_by(id=id).first()
 
 # def get_active_events():
     # events = Event.query.

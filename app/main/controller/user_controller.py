@@ -26,7 +26,7 @@ class User(Resource):
     @api.doc('get a user')
     @api.marshal_with(_user)
     def get(self, public_id):
-        """get a user given its identifier"""
+        """Get a user given its identifier"""
         user = get_user(public_id)
         if not user:
             api.abort(404)
