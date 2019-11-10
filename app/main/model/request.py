@@ -18,7 +18,6 @@ class Request(db.Model):
     status = db.Column(db.Enum(*RequestStatus, name='status'),
                         default='pending', nullable=False)
     reviewed_by = db.Column(db.Integer, db.ForeignKey('user.id'))
-    remarks = db.Column(db.Text)
 
     def __repr__(self):
         return "<Request '{}'>".format(self.id)

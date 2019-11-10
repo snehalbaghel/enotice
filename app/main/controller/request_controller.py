@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, g
 from flask_restplus import Resource
 
 from ..util.dto import RequestDto
@@ -30,6 +30,5 @@ class RequestReview(Resource):
     def post(self):
         """Review requests"""
         data = request.json
-        user, code = Auth.get_logged_in_user(request)
-        data['user_id'] = user['data']['user_id']
+        data['user_id'] = g.current_user
         return review_event(data)

@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, g
 from flask_restplus import Resource
 
 from ..util.dto import EventDto
@@ -20,8 +20,7 @@ class EventList(Resource):
     def post(self):
         """Creates a new event"""
         data = request.json
-        user, code = Auth.get_logged_in_user(request)
-        data['user_id'] = user['data']['user_id']
+        data['user_id'] = g.current_user
         return save_new_event(data)
 
 
@@ -29,7 +28,7 @@ class EventList(Resource):
 @api.param('id', 'The event identifier')
 @api.response(404, 'Event not found.')
 class Event(Resource):
-    @api.doc('get event details from it\'s id')
+    @api.doc('get event(published) details from it\'s id')
     @api.marshal_with(_event)
     def get(self, id):
         """Get event details from it\'s id"""

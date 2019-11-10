@@ -1,11 +1,13 @@
-from flask import request
+from flask import request, g
 from flask_restplus import Resource
 
-from ..util.dto import UserDto
-from ..service.user_service import save_new_user, get_all_users, get_user
+from ..util.dto import UserDto, EventDto, RequestDto
+from ..service.user_service import save_new_user, get_all_users, get_user, get_user_events
+from ..util.decorator import token_required
 
 api = UserDto.api
 _user = UserDto.user
+_event = EventDto.event
 
 
 @api.route('/')
@@ -32,3 +34,23 @@ class User(Resource):
             api.abort(404)
         else:
             return user
+
+
+@api.route('/events')
+class Events(Resource):
+    @api.doc('get user\'s saved events')
+    @api.marshal_list_with(_event)
+    @token_required
+    def get(self):
+        """Get user\'s saved events"""
+        return get_user_events(g.current_user)
+
+
+# @api.route('/requests')
+# class Request(Resource):
+    # @api.doc('get user\'s requests')
+    # @api.marshal_list_with()
+    # @token_required
+    # def get(self):
+        # """Get user\'s requests"""
+        # return {}

@@ -2,6 +2,7 @@ import uuid
 
 from app.main import db
 from app.main.model.user import User
+from app.main.model.event import Event
 
 
 def save_new_user(data):
@@ -32,8 +33,8 @@ def get_user(public_id):
     return User.query.filter_by(public_id=public_id).first()
 
 
-def get_user_events():
-    pass
+def get_user_events(user):
+    return Event.query.filter_by(user_id=user)
 
 
 def generate_token(user):

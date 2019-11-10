@@ -31,8 +31,9 @@ class EventDto:
         'subtitle': fields.String(required=True, description='The event subtitle'),
         'description': fields.String(required=True, description='The event description'),
         'venue': fields.String(required=True, description='The event venue'),
-        'time': fields.String(required=True, description='The event time'),
-        'link': fields.String(required=True, description='The event registration link')
+        'time': fields.DateTime(required=True, description='The event time'),
+        'link': fields.String(required=True, description='The event registration link'),
+        'picture_id': fields.String(required=False, description='The picture\'s primary key')
     })
 
 

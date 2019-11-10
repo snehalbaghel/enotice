@@ -25,5 +25,3 @@ class Event(db.Model):
 
     def __repr__(self):
         return "<Event '{}'>".format(self.id)
-
-    # status = relationship("Status", uselist=False, back_populates="event")
