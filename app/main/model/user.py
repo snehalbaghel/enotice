@@ -3,13 +3,10 @@ import datetime
 import jwt
 from app.main.model.blacklist import BlacklistToken
 from ..config import key
-# from flask_sqlalchemy import relationship
-from sqlalchemy.orm import relationship
 
 
 class User(db.Model):
     """ User Model for storing user related details """
-    __tablename__ = "user"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
@@ -17,7 +14,6 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True)
     password_hash = db.Column(db.String(100))
     public_id = db.Column(db.String(100))
-    events = relationship("Event")
     created_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now)
     updated_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now,
                            onupdate=datetime.datetime.now)
