@@ -11,10 +11,10 @@ def token_required(f):
         data, status = Auth.get_logged_in_user(request)
         token = data.get('data')
 
-        if not token:
+        if not token['user_id']:
             return data, status
 
-        g.current_user = token.user_id
+        g.current_user = token['user_id']
 
         return f(*args, **kwargs)
 
@@ -39,7 +39,7 @@ def admin_token_required(f):
             }
             return response, 401
 
-        g.current_user = token.data.user_id
+        g.current_user = token['user_id']
 
         return f(*args, **kwargs)
     return decorated

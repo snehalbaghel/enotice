@@ -5,6 +5,7 @@
   "editor.tabSize": 4,
   "python.pythonPath": "/home/snehalbaghel/.local/share/virtualenvs/enotice-nrO5m_G_/bin/python",
   "cSpell.words": [
+    "CORS",
     "onupdate"
   ],
   "python.linting.flake8Args": [

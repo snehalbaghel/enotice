@@ -4,6 +4,8 @@ from app.main import db
 from app.main.model.user import User
 from app.main.model.event import Event
 
+# TODO: Add logout event
+
 
 def save_new_user(data):
     user = User.query.filter_by(email=data['email']).first()
@@ -34,7 +36,7 @@ def get_user(public_id):
 
 
 def get_user_events(user):
-    return Event.query.filter_by(user_id=user)
+    return Event.query.filter_by(user_id=user).all()
 
 
 def generate_token(user):

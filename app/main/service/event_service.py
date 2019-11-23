@@ -2,15 +2,18 @@ from app.main import db
 from app.main.model.event import Event
 from app.main.model.request import Request
 import datetime
+import dateutil.parser
 
 
 def save_new_event(data):
+    event_date = dateutil.parser.parse(data['time'])
+
     new_event = Event(
         title=data['title'],
         subtitle=data['subtitle'],
         description=data['description'],
         venue=data['venue'],
-        time=data['time'],
+        time=event_date,
         user_id=data['user_id'],
         link=data['link'],
     )
@@ -25,22 +28,21 @@ def save_new_event(data):
 
 
 def get_pending_events():
-    events = Event.query.join(Request).filter(Request.status == 'pending')
+    events = Event.query.join(Request,
+        Event.id == Request.event_id).filter(Request.status == 'pending').all()
     return events, 200
 
 
 def get_published_events():
-    events = Event.query.join(Request).filter(Request.status == 'approved')
+    events = Event.query.join(Request,
+        Event.id == Request.event_id).filter(Request.status == 'approved').all()
     return events, 200
 
 
 def get_event(id):
-    # TODO: return only published event
-    return Event.query.filter_by(id=id).first()
-
-# def get_active_events():
-    # events = Event.query.
-    # pass
+    return Event.query.join(Request,
+        Event.id == Request.event_id).filter(Request.status == 'approved').filter(
+        Event.id == id).first()
 
 
 def save_changes(changes):

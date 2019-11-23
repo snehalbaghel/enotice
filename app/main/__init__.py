@@ -15,6 +15,9 @@ def create_app(config_key):
     app.config.from_object(config_factory[config_key])
     db.init_app(app)
     flask_bcrypt.init_app(app)
-    CORS(app)
+    CORS(app, origins="http://localhost:8080",
+        allow_headers=['Content-Type', 'Authorization'],
+        methods=['GET', 'POST', 'OPTIONS'])
+    # app.config['CORS_HEADERS'] = 'Content-Type'
 
     return app
