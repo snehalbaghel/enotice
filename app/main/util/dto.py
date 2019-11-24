@@ -15,6 +15,7 @@ class UserDto:
     })
 
 
+#  TODO: Add auth response model here
 class AuthDto:
     api = Namespace('auth', description='authentication related operations')
     user_auth = api.model('auth_details', {
@@ -33,7 +34,8 @@ class EventDto:
         'venue': fields.String(required=True, description='The event venue'),
         'time': fields.DateTime(required=True, description='The event time'),
         'link': fields.String(required=True, description='The event registration link'),
-        'picture_id': fields.String(required=False, description='The picture\'s primary key')
+        'picture_id': fields.String(required=False, description='The picture\'s primary key'),
+        'tags': fields.List(fields.String(required=True, description='Tag\'s associated with the event'))
     })
 
 
@@ -57,4 +59,13 @@ class AuthResponseDto:
         'message': fields.String(required=True, description='additional info'),
         'Authorization': fields.String(required=False, description='jwt token'),
         'user': fields.Nested(UserDto.user, required=False, description='user profile')
+    })
+
+
+class TagDto:
+    api = Namespace('tag', description='tags related operations')
+    tag_response = api.model('tag_response', {
+        'id': fields.String(required=True, description='Id of tag'),
+        'name': fields.String(required=True, description='Name of the tag'),
+        'count': fields.String(required=True, description='No. of events with this tag')
     })
