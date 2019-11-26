@@ -11,7 +11,7 @@ def token_required(f):
         data, status = Auth.get_logged_in_user(request)
         token = data.get('data')
 
-        if not token['user_id']:
+        if not token:
             return data, status
 
         g.current_user = token['user_id']

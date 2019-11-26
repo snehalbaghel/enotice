@@ -54,8 +54,9 @@ class Auth:
     @staticmethod
     def get_logged_in_user(new_request):
         # get the auth token
-        auth_token = new_request.headers.get('Authorization').split(" ")[1]
+        auth_token = new_request.headers.get('Authorization')
         if auth_token:
+            auth_token = auth_token.split(" ")[1]
             resp = User.decode_auth_token(auth_token)
             if not isinstance(resp, str):
                 user = User.query.filter_by(id=resp).first()
@@ -68,9 +69,15 @@ class Auth:
                     }
                 }
                 return response, 200
+            else:
+                response = {
+                    'status': 'fail',
+                    'message': resp
+                }
+                return response, 401
         else:
             response = {
                 'status': 'fail',
-                'message': 'Provide a valid auth token.'
+                'message': 'Auth token is not provided.'
             }
             return response, 401
