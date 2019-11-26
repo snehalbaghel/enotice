@@ -5,6 +5,7 @@ from app.main.model.tag import Tag
 from app.main.model.event_tag import EventTag
 import datetime
 import dateutil.parser
+from . import save_changes
 
 
 def save_new_event(data):
@@ -18,6 +19,7 @@ def save_new_event(data):
         time=event_date,
         user_id=data['user_id'],
         link=data['link'],
+        picture_id=data['picture_id'],
     )
 
     add_tags(data['tags'], new_event.id)
@@ -63,9 +65,3 @@ def add_tags(tags, eventId):
         )
         existing_tag.count += 1
         save_changes(new_event_tag)
-
-
-def save_changes(changes):
-    print("saving")
-    db.session.add(changes)
-    db.session.commit()

@@ -8,7 +8,7 @@ api = TagDto.api
 tag_response = TagDto.tag_response
 
 
-@api.route('/')
+@api.route('/all')
 class TagList(Resource):
     @api.doc('list of all tags')
     @api.marshal_list_with(tag_response)

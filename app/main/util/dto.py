@@ -37,6 +37,10 @@ class EventDto:
         'picture_id': fields.String(required=False, description='The picture\'s primary key'),
         'tags': fields.List(fields.String(required=True, description='Tag\'s associated with the event'))
     })
+    upload_response = api.model('upload_response', {
+        'status': fields.String(description='success/fail'),
+        'picture_id': fields.String(description='picture\'s public id', required=False)
+    })
 
 
 class RequestDto:

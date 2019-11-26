@@ -15,12 +15,12 @@ class Event(db.Model):
     time = db.Column(db.DateTime, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship("User", backref="events")
-    picture_id = db.Column(db.Integer, db.ForeignKey('picture.id'),
-                           default=None)
+    picture_id = db.Column(db.String(37), db.ForeignKey('picture.id'),
+                        default=None)
     link = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now)
     updated_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now,
-                           onupdate=datetime.datetime.now)
+                        onupdate=datetime.datetime.now)
 
     def __repr__(self):
         return "<Event '{}'>".format(self.id)

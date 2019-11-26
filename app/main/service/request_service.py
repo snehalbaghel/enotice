@@ -1,6 +1,7 @@
 from app.main import db
 from app.main.model.request import Request
 import datetime
+from . import save_changes
 
 
 def save_new_request(data):
@@ -36,9 +37,3 @@ def review_event(data):
             'message': 'Event id invalid'
         }
         return response, 400
-
-
-def save_changes(changes):
-    print("saving")
-    db.session.add(changes)
-    db.session.commit()

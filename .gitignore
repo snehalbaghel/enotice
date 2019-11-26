@@ -20,3 +20,6 @@ pip-log.txt
 venv
 *.pyc
 build
+
+# Image dir
+app/main/images

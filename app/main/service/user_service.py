@@ -3,6 +3,7 @@ import uuid
 from app.main import db
 from app.main.model.user import User
 from app.main.model.event import Event
+from . import save_changes
 
 # TODO: Add logout event
 
@@ -56,9 +57,3 @@ def generate_token(user):
             'message': 'Some error occurred. Please try again.'
         }
         return response, 401
-
-
-def save_changes(changes):
-    print("saving")
-    db.session.add(changes)
-    db.session.commit()

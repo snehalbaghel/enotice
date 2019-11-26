@@ -7,7 +7,8 @@ class Picture(db.Model):
     Picture model to save event and user pictures
     """
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.String(37), primary_key=True)
     description = db.Column(db.Text, nullable=True, default=None)
-    path = db.Column(db.String(250), nullable=False)
+    filename = db.Column(db.String(250), nullable=False)
+    # public_id = db.Column(db.String(37), nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now)

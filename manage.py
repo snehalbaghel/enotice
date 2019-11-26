@@ -23,6 +23,10 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def run():
+    import os
+    image_path = os.path.join(app.root_path, app.config.get('UPLOAD_FOLDER'))
+    if not os.path.exists(image_path):
+        os.mkdir(image_path)
     app.run()
 
 
