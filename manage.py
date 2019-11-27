@@ -3,7 +3,6 @@ import unittest
 
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
-from flask import url_for
 
 from app import blueprint
 from app.main import create_app, db

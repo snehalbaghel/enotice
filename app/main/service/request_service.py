@@ -19,7 +19,7 @@ def save_new_request(data):
 
 
 def review_event(data):
-    req = db.session.query(Request).filter(Request.id == data['event_id']).first()
+    req = Request.filter(Request.id == data['event_id']).one_or_none()
     if req:
         req.status = data['status']
         req.reviewed_by = data['user_id']
