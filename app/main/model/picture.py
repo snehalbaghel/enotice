@@ -10,5 +10,4 @@ class Picture(db.Model):
     id = db.Column(db.String(37), primary_key=True)
     description = db.Column(db.Text, nullable=True, default=None)
     filename = db.Column(db.String(250), nullable=False)
-    # public_id = db.Column(db.String(37), nullable=False)
     created_at = db.Column(db.TIMESTAMP, default=datetime.datetime.now)

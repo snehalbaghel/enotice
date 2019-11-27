@@ -5,7 +5,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'pls_put_secret_key')
     DEBUG = False
     CSRF_ENABLED = True
-    UPLOAD_FOLDER = 'images'
+    UPLOAD_FOLDER = 'static/images'
 
 
 class DevConfig(Config):

@@ -9,7 +9,8 @@ from app.main.util.decorator import token_required, admin_token_required
 from app.main.service.auth_helper import Auth
 from app.main.model.picture import Picture
 from app.main.service import save_changes
-from flask import current_app
+from flask import current_app, send_from_directory
+import os
 
 
 api = EventDto.api
@@ -68,13 +69,14 @@ class PublishedEventsList(Resource):
         return get_published_events()
 
 
-@api.route('/image')
+@api.route('/image/<id>')
 class PosterImage(Resource):
     @api.doc('upload endpoint for image')
     @api.expect(upload_parser)
     @api.marshal_with(EventDto.upload_response)
+    @api.param('id', description='*id not required*')
     def post(self):
-        """Endpoint to upload an image file"""
+        """Upload an image file"""
         args = upload_parser.parse_args()
         upload_file = args['file']
         try:
@@ -83,8 +85,8 @@ class PosterImage(Resource):
                 import os
                 import uuid
 
-                file_ext = secure_filename(upload_file.filename)
-                file_name = str(uuid.uuid4()) + file_ext
+                file_ext = secure_filename(upload_file.filename).split('.')[-1]
+                file_name = str(uuid.uuid4()) + '.' + file_ext
                 public_id = str(uuid.uuid4())
                 destination = os.path.join(current_app.root_path, current_app.config.get('UPLOAD_FOLDER'))
 
@@ -108,3 +110,21 @@ class PosterImage(Resource):
                 'status': 'failed'
             }
             return response, 200
+
+    @api.param('id', description='public id of image')
+    @api.doc('download image with it\'s public id')
+    def get(self, id):
+        """Download image with it\'s public id"""
+        pic = Picture.query.filter(Picture.id == id).one_or_none()
+
+        if(not pic):
+            response = {
+                'message': 'invalid id provided'
+            }
+
+            return response, 400
+
+        filename = pic.filename
+        path = os.path.join(current_app.root_path, current_app.config.get('UPLOAD_FOLDER'))
+
+        return send_from_directory(path, filename, as_attachment=True)

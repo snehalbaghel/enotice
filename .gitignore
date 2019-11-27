@@ -22,4 +22,4 @@ venv
 build
 
 # Image dir
-app/main/images
+app/main/static/images

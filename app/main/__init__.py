@@ -11,7 +11,7 @@ flask_bcrypt = Bcrypt()
 
 
 def create_app(config_key):
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder="static")
     app.config.from_object(config_factory[config_key])
     db.init_app(app)
     flask_bcrypt.init_app(app)
