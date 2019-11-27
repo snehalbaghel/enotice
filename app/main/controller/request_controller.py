@@ -41,13 +41,14 @@ class ReviewHistory(Resource):
     @api.doc('get event\'s review history')
     @api.param('id', description='Event\'s id')
     @token_required
+    @api.marshal_with(RequestDto.history)
     def get(self, id):
         """Event\'s review history"""
         event = Event.query.filter(Event.id == id).one_or_none()
 
         if (event and event.user_id == g.current_user):
             timeline = list()
-
+            print(event)
             timeline.append({
                 'actor': 'You',
                 'datetime': event.created_at,
@@ -81,13 +82,12 @@ class ReviewHistory(Resource):
                     })
 
             response = {
-                'current_status': request.status,
+                'status': 'success',
+                'current_status': request.status if request else 'NA',
                 'timeline': timeline
             }
 
             return response, 200
-            #       if event is rejected/approved, append
-            print('j')
         else:
             response = {
                 'status': 'failed',

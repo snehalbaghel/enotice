@@ -53,6 +53,18 @@ class RequestDto:
         'remarks': fields.String(required=False,
                                 description='Remarks for the event')
     })
+    timeline_item = api.model('timeline_item', {
+        'actor': fields.String(description='The actor of the item'),
+        'datetime': fields.DateTime(description='Time when event occurred'),
+        'message': fields.String(description='Description of the event/feedback')
+    })
+
+    history = api.model('request_history', {
+        'current_status': fields.String(required=False, description='The current status of the request'),
+        'timeline': fields.List(fields.Nested(timeline_item), description='History of the request', required=False),
+        'status': fields.String(required=False, description='status of request'),
+        'message': fields.String(request=False, description='error message if failed')
+    })
 
 
 class AuthResponseDto:
