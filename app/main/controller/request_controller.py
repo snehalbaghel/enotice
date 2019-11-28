@@ -19,7 +19,10 @@ class Request(Resource):
     @api.expect(_request, validate=True)
     @token_required
     def post(self):
-        """Creates new request"""
+        """
+            Creates new request
+            Token: User/Admin
+        """
         data = request.json
         return save_new_request(data=data)
 
@@ -30,7 +33,10 @@ class RequestReview(Resource):
     @api.expect(_request)
     @admin_token_required
     def post(self):
-        """Review requests"""
+        """
+            Review requests
+            Token: Admin
+        """
         data = request.json
         data['user_id'] = g.current_user
         return review_event(data)
@@ -43,7 +49,10 @@ class ReviewHistory(Resource):
     @token_required
     @api.marshal_with(RequestDto.history)
     def get(self, id):
-        """Event\'s review history"""
+        """
+            Event\'s review history
+            Token: User/Admin
+        """
         event = Event.query.filter(Event.id == id).one_or_none()
 
         if (event and event.user_id == g.current_user):

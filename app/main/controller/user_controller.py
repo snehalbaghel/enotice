@@ -42,7 +42,10 @@ class Events(Resource):
     @api.marshal_list_with(_event)
     @token_required
     def get(self):
-        """Get user\'s saved events"""
+        """
+            Get user\'s saved events
+            Token: User/Admin
+        """
         return get_user_events(g.current_user)
 
 

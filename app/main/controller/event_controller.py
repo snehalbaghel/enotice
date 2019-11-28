@@ -29,7 +29,10 @@ class EventList(Resource):
     @api.expect(_event, validate=True)
     @token_required
     def post(self):
-        """Creates a new event"""
+        """
+            Creates a new event
+            Token: User/Admin
+        """
         data = request.json
         data['user_id'] = g.current_user
         return save_new_event(data)
@@ -56,7 +59,10 @@ class PendingEventsList(Resource):
     @api.marshal_list_with(_event)
     @admin_token_required
     def get(self):
-        """List of all pending events (admin function)"""
+        """
+            List of all pending events
+            Token: Admin
+        """
         return get_pending_events()
 
 
@@ -75,8 +81,12 @@ class PosterImage(Resource):
     @api.expect(upload_parser)
     @api.marshal_with(EventDto.upload_response)
     @api.param('id', description='*id not required*')
+    @token_required
     def post(self):
-        """Upload an image file"""
+        """
+            Upload an image file
+            Token: User
+        """
         args = upload_parser.parse_args()
         upload_file = args['file']
         try:
