@@ -1,13 +1,15 @@
 from flask import request, g
-from flask_restplus import Resource
+from flask_restplus import Resource, marshal
 
 from ..util.dto import UserDto, EventDto, RequestDto
 from ..service.user_service import save_new_user, get_all_users, get_user, get_user_events
 from ..util.decorator import token_required
+from ..util.dto import AuthDto, AuthResponseDto
 
 api = UserDto.api
 _user = UserDto.user
 _event = EventDto.event
+auth_resp = AuthResponseDto.auth_response
 
 
 @api.route('')
@@ -18,7 +20,8 @@ class UserList(Resource):
     def post(self):
         """Creates a new User"""
         data = request.json
-        return save_new_user(data=data)
+        res, code = save_new_user(data=data)
+        return marshal(res, auth_resp), code
 
 
 @api.route('/<public_id>')

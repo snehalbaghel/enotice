@@ -92,7 +92,7 @@ class ReviewHistory(Resource):
 
             response = {
                 'status': 'success',
-                'current_status': request.status if request else 'NA',
+                'current_status': request.status if request else 'saved',
                 'timeline': timeline
             }
 

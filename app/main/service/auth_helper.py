@@ -7,6 +7,7 @@ class Auth:
     def login_user(data):
         try:
             user = User.query.filter_by(email=data.get('email')).first()
+            user = user if user else User.query.filter(User.username == data.get('email')).first()
             if user and user.check_password(data.get('password')):
                 auth_token = user.encode_auth_token(user.id)
                 if auth_token:
