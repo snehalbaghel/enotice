@@ -10,9 +10,8 @@ from . import save_changes
 
 def save_new_user(data):
     user = User.query.filter_by(email=data['email']).first()
-    print(user)
     if not user:
-        user = User.query.filter(User.username == data['username'])
+        user = User.query.filter(User.username == data['username']).first()
         if not user:
             new_user = User(
                 public_id=str(uuid.uuid4()),
