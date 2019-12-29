@@ -12,20 +12,28 @@ def save_new_user(data):
     user = User.query.filter_by(email=data['email']).first()
     print(user)
     if not user:
-        new_user = User(
-            public_id=str(uuid.uuid4()),
-            email=data['email'],
-            username=data['username'],
-            password=data['password'],
-        )
-        save_changes(new_user)
-        return generate_token(new_user)
+        user = User.query.filter(User.username == data['username'])
+        if not user:
+            new_user = User(
+                public_id=str(uuid.uuid4()),
+                email=data['email'],
+                username=data['username'],
+                password=data['password'],
+            )
+            save_changes(new_user)
+            return generate_token(new_user)
+        else:
+            response = {
+                'status': 'fail',
+                'message': 'Username already exists. Please use a different username.'
+            }
     else:
         response = {
             'status': 'fail',
-            'message': 'User already exists. Please Log in.',
+            'message': 'Email already exists. Please use a different email.',
         }
-        return response, 409
+
+    return response, 200
 
 
 def get_all_users():

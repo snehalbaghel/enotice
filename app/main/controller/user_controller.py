@@ -10,7 +10,7 @@ _user = UserDto.user
 _event = EventDto.event
 
 
-@api.route('/')
+@api.route('')
 class UserList(Resource):
     @api.response(201, 'User successfully created.')
     @api.doc('create new user')
