@@ -30,7 +30,7 @@ class Request(Resource):
 @api.route('/review')
 class RequestReview(Resource):
     @api.doc('review requests')
-    @api.expect(_request)
+    @api.expect([_request])
     @admin_token_required
     def post(self):
         """
@@ -39,6 +39,7 @@ class RequestReview(Resource):
         """
         data = request.json
         data['user_id'] = g.current_user
+
         return review_event(data)
 
 

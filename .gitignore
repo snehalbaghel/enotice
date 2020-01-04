@@ -23,3 +23,6 @@ build
 
 # Image dir
 app/main/static/images
+
+# who knows
+.vscode/.ropeproject

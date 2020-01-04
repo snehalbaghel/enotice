@@ -56,7 +56,7 @@ class Event(Resource):
 @api.route('/pending')
 class PendingEventsList(Resource):
     @api.doc('list of pending events (admin function)')
-    @api.marshal_list_with(_event)
+    @api.marshal_list_with(EventDto.pending_events_response)
     @admin_token_required
     def get(self):
         """

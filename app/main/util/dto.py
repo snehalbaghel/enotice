@@ -35,11 +35,19 @@ class EventDto:
         'time': fields.DateTime(required=True, description='The event time'),
         'link': fields.String(required=True, description='The event registration link'),
         'picture_id': fields.String(required=False, description='The picture\'s primary key'),
-        'tags': fields.List(fields.String(required=True, description='Tag\'s associated with the event'))
     })
     upload_response = api.model('upload_response', {
         'status': fields.String(description='success/fail'),
         'picture_id': fields.String(description='picture\'s public id', required=False)
+    })
+    pending_events_response = api.model('pending_events_response', {
+        'request_id': fields.String(description='request\'s id', required=True, attribute="request.id"),
+        'title': fields.String(description='event title', required=True, attribute="event.title"),
+        'username': fields.String(description='requester\'s username', required=True, attribute="user.username"),
+        'event_date': fields.DateTime(description='event\'s date', required=True, attribute="event.time"),
+        'request_date': fields.DateTime(description='request created_at', required=True,
+        attribute="request.created_at"),
+        'current_status': fields.String(description='request\'s status', required=True, attribute="request.status"),
     })
 
 
@@ -48,10 +56,7 @@ class RequestDto:
     request = api.model('request_details', {
         'event_id': fields.String(required=True,
                                 description='The event id associated with the request'),
-        'status': fields.String(required=False,
-                                description='Status of request'),
-        'remarks': fields.String(required=False,
-                                description='Remarks for the event')
+        'status': fields.String(required=False, description='In case of approval req'),
     })
     timeline_item = api.model('timeline_item', {
         'actor': fields.String(description='The actor of the item'),

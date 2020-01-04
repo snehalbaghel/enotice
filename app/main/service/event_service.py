@@ -3,6 +3,7 @@ from app.main.model.event import Event
 from app.main.model.request import Request
 from app.main.model.tag import Tag
 from app.main.model.event_tag import EventTag
+from app.main.model.user import User
 import datetime
 import dateutil.parser
 from . import save_changes
@@ -34,8 +35,10 @@ def save_new_event(data):
 
 
 def get_pending_events():
-    events = Event.query.join(Request,
-        Event.id == Request.event_id).filter(Request.status == 'pending').all()
+    events = db.session.query(Event, Request, User).join(Request,
+        Event.id == Request.event_id).add_columns().filter(Request.status.in_(['pending', 'review'])).filter(
+            Event.user_id == User.id).all()
+    print(events, "Hello")
     return events, 200
 
 
