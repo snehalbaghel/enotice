@@ -35,11 +35,20 @@ def save_new_event(data):
 
 
 def get_pending_events():
-    events = db.session.query(Event, Request, User).join(Request,
+    queryResult = db.session.query(Event, Request, User).join(Request,
         Event.id == Request.event_id).add_columns().filter(Request.status.in_(['pending', 'review'])).filter(
             Event.user_id == User.id).all()
-    print(events, "Hello")
-    return events, 200
+
+    response = []
+
+    for resTup in queryResult:
+        response.append({
+            'event': resTup[0],
+            'request': resTup[1],
+            'user': resTup[2]
+        })
+
+    return response, 200
 
 
 def get_published_events():
