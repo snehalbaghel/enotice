@@ -35,6 +35,7 @@ class EventDto:
         'time': fields.DateTime(required=True, description='The event time'),
         'link': fields.String(required=True, description='The event registration link'),
         'picture_id': fields.String(required=False, description='The picture\'s primary key'),
+        'tags': fields.List(fields.String(required=True, description='Tag\'s associated with the event')),
     })
     upload_response = api.model('upload_response', {
         'status': fields.String(description='success/fail'),
@@ -47,6 +48,8 @@ class EventDto:
         'event_date': fields.DateTime(description='event\'s date', required=True, attribute="event.time"),
         'request_date': fields.DateTime(description='request created_at', required=True,
         attribute="request.created_at"),
+        'event_id': fields.String(description='ID of event associated with the request', required=True,
+            attribute="event.id"),
         'current_status': fields.String(description='request\'s status', required=True, attribute="request.status"),
     })
 
