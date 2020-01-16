@@ -15,6 +15,7 @@ def token_required(f):
             return data, status
 
         g.current_user = token['user_id']
+        g.is_user_admin = token.get('admin')
 
         return f(*args, **kwargs)
 

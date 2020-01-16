@@ -55,8 +55,7 @@ class ReviewHistory(Resource):
             Token: User/Admin
         """
         event = Event.query.filter(Event.id == id).one_or_none()
-
-        if (event and event.user_id == g.current_user):
+        if (event and (event.user_id == g.current_user or g.is_user_admin)):
             timeline = list()
             print(event)
             timeline.append({

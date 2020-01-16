@@ -36,7 +36,7 @@ def save_new_event(data):
 
 def get_pending_events():
     queryResult = db.session.query(Event, Request, User).join(Request,
-        Event.id == Request.event_id).add_columns().filter(Request.status.in_(['pending', 'review'])).filter(
+        Event.id == Request.event_id).add_columns().filter(Request.status.in_(['pending'])).filter(
             Event.user_id == User.id).all()
 
     response = []
