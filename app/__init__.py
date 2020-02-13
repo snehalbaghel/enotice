@@ -18,11 +18,12 @@ authorizations = {
 }
 
 api = Api(blueprint,
-          title='enotice REST',
-          version='1.0',
-          description='Backend for enotice webapp\'s consumption',
-          security='Basic Auth',
-          authorizations=authorizations
+        doc='/docs',
+        title='enotice REST',
+        version='1.0',
+        description='Backend for enotice webapp\'s consumption',
+        security='Basic Auth',
+        authorizations=authorizations
           )
 
 api.add_namespace(auth_ns)
