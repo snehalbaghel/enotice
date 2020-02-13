@@ -1,5 +1,5 @@
 from flask import request, g
-from flask_restplus import Resource, marshal
+from flask_restx import Resource, marshal
 
 from ..util.dto import UserDto, EventDto, RequestDto
 from ..service.user_service import save_new_user, get_all_users, get_user, get_user_events

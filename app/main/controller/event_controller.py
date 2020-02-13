@@ -1,5 +1,5 @@
 from flask import request, g
-from flask_restplus import Resource
+from flask_restx import Resource
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 

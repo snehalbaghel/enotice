@@ -9,7 +9,6 @@ rope = "*"
 
 [packages]
 flask-bcrypt = "*"
-flask-restplus = "*"
 flask-migrate = "*"
 pyjwt = "*"
 flask-script = "*"
@@ -18,6 +17,7 @@ flask-testing = "*"
 flask-cors = "*"
 flask-sqlalchemy = "*"
 sentry-sdk = {extras = ["flask"],version = "==0.13.5"}
+flask-restx = "*"
 
 [requires]
 python_version = "3.8"

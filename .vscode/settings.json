@@ -6,7 +6,9 @@
   "python.pythonPath": "/home/snehalbaghel/.local/share/virtualenvs/enotice-nrO5m_G_/bin/python",
   "cSpell.words": [
     "CORS",
-    "onupdate"
+    "flask",
+    "onupdate",
+    "restx"
   ],
   "python.linting.flake8Args": [
     "--max-line-length=120",

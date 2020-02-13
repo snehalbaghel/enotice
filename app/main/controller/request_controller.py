@@ -1,5 +1,5 @@
 from flask import request, g
-from flask_restplus import Resource
+from flask_restx import Resource
 
 from ..util.dto import RequestDto
 from ..service.request_service import save_new_request, review_event
