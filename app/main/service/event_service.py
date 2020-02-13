@@ -7,6 +7,7 @@ from app.main.model.user import User
 import datetime
 import dateutil.parser
 from . import save_changes
+from flask import g
 
 
 def save_new_event(data):
@@ -58,6 +59,11 @@ def get_published_events():
 
 
 def get_event(id):
+    if (g.is_user_admin):
+        return Event.query.join(Request,
+            Event.id == Request.event_id).filter(
+            Event.id == id).first()
+
     return Event.query.join(Request,
         Event.id == Request.event_id).filter(Request.status == 'approved').filter(
         Event.id == id).first()

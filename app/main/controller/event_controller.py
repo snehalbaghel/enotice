@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 
 from ..util.dto import EventDto
 from app.main.service.event_service import save_new_event, get_published_events, get_pending_events, get_event
-from app.main.util.decorator import token_required, admin_token_required
+from app.main.util.decorator import token_required, admin_token_required, get_user
 from app.main.service.auth_helper import Auth
 from app.main.model.picture import Picture
 from app.main.service import save_changes
@@ -22,9 +22,8 @@ upload_parser.add_argument('file', location='files',
 
 
 @api.route('/')
-class EventList(Resource):
+class Event(Resource):
     @api.response(201, 'Event successfully created.')
-    # @api.doc(parser=parser)
     @api.doc('create new event')
     @api.expect(_event, validate=True)
     @token_required
@@ -38,19 +37,19 @@ class EventList(Resource):
         return save_new_event(data)
 
 
-@api.route('/<id>')
-@api.param('id', 'The event identifier')
-@api.response(404, 'Event not found.')
-class Event(Resource):
+@api.route('/get/<id>')
+@api.param('id', description='id of event')
+class EventGet(Resource):
     @api.doc('get event(published) details from it\'s id')
-    @api.marshal_with(_event)
+    @api.marshal_with(EventDto.event)
+    @get_user
     def get(self, id):
-        """Get event details from it\'s id"""
+        """Get event from it\'s id"""
         event = get_event(id)
-        if not event:
-            api.abort(404)
-        else:
+        if event:
             return event
+        else:
+            return api.abort(404)
 
 
 @api.route('/pending')
