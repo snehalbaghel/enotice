@@ -18,13 +18,13 @@ def save_new_request(data):
 
         save_changes(new_request)
 
-        response.status = 'success'
-        response.message = 'event reviewed'
-        response.code = 201
+        response['status'] = 'success'
+        response['message'] = 'Request sent.'
+        response['code'] = 201
     except Exception as error:
-        response.status = 'failure'
-        response.message = str(error)
-        response.code = 400
+        response['status'] = 'failure'
+        response['message'] = str(error)
+        response['code'] = 400
 
     return response
 
