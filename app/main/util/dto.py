@@ -59,7 +59,8 @@ class RequestDto:
     request = api.model('request_details', {
         'event_id': fields.String(required=True,
                                 description='The event id associated with the request'),
-        'status': fields.String(required=False, description='In case of approval req'),
+        'status': fields.String(required=True, description='approved/review'),
+        'review_msg': fields.String(required=False, description='In case of review req'),
     })
     timeline_item = api.model('timeline_item', {
         'actor': fields.String(description='The actor of the item'),

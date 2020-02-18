@@ -1,5 +1,6 @@
 from app.main import db
 from app.main.model.request import Request
+from app.main.model.review import Review
 import datetime
 from . import save_changes
 
@@ -29,22 +30,33 @@ def save_new_request(data):
     return response
 
 
-def review_event(data):
+def review_event(data, reviewer_id):
     req = Request.filter(Request.id == data['event_id']).one_or_none()
-
     response = {
         'event_id': data['event_id']
     }
 
     if req:
-        req.status = 'review'
-        req.reviewed_by = data['user_id']
-        db.session.commit()
-        response.status = 'success'
-        response.message = 'reviewed event'
-        return response
-    else:
-        response.status = 'failure'
-        response.message = 'Event id invalid'
+        if data.status == 'review':
+            req.status = 'review'
+            review = Review(request_id=req.id,
+                reviewer_id=reviewer_id,
+                review=data.review_msg)
+            save_changes(review)
 
-        return response
+            response.status = 'success'
+            response.message = 'Reviewed event'
+            return response
+        elif data.status == 'approved':
+            req.status = 'approved'
+            req.reviewer_id = reviewer_id
+            db.session.commit()
+
+            response.status = 'success'
+            response.message = 'Approved event'
+            return response
+
+    response.status = 'failure'
+    response.message = 'Event id invalid'
+
+    return response

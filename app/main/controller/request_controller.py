@@ -38,9 +38,12 @@ class RequestReview(Resource):
             Token: Admin
         """
         data = request.json
-        data['user_id'] = g.current_user
+        response = []
 
-        return review_event(data)
+        for req in data:
+            response.append(review_event(req, g.current_user))
+
+        return response
 
 
 @api.route('/history/<id>')
