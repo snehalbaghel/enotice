@@ -57,8 +57,8 @@ class EventDto:
 class RequestDto:
     api = Namespace('request', description='request related operations')
     request = api.model('request_details', {
-        'event_id': fields.String(required=True,
-                                description='The event id associated with the request'),
+        'request_id': fields.String(required=True,
+                                description='The request id'),
         'status': fields.String(required=True, description='approved/review'),
         'review_msg': fields.String(required=False, description='In case of review req'),
     })

@@ -31,32 +31,32 @@ def save_new_request(data):
 
 
 def review_event(data, reviewer_id):
-    req = Request.filter(Request.id == data['event_id']).one_or_none()
+    req = Request.query.filter(Request.id == data['request_id']).one_or_none()
     response = {
-        'event_id': data['event_id']
+        'request_id': data['request_id']
     }
 
     if req:
-        if data.status == 'review':
+        if data['status'] == 'review':
             req.status = 'review'
             review = Review(request_id=req.id,
                 reviewer_id=reviewer_id,
-                review=data.review_msg)
+                review=data['review_msg'])
             save_changes(review)
 
-            response.status = 'success'
-            response.message = 'Reviewed event'
+            response['status'] = 'success'
+            response['message'] = 'Reviewed event'
             return response
-        elif data.status == 'approved':
+        elif data['status'] == 'approved':
             req.status = 'approved'
             req.reviewer_id = reviewer_id
             db.session.commit()
 
-            response.status = 'success'
-            response.message = 'Approved event'
+            response['status'] = 'success'
+            response['message'] = 'Approved event'
             return response
 
-    response.status = 'failure'
-    response.message = 'Event id invalid'
+    response['status'] = 'failure'
+    response['message'] = 'Event id invalid'
 
     return response
