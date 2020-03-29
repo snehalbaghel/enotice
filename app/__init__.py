@@ -21,7 +21,7 @@ api = Api(blueprint,
         doc='/docs',
         title='enotice REST',
         version='1.0',
-        description='Backend for enotice webapp\'s consumption',
+        description='enotice Backend',
         security='Basic Auth',
         authorizations=authorizations
           )
