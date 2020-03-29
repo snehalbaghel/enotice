@@ -1,5 +1,7 @@
 # Enotice REST
 
+Frontend at: [notice-ui](https://github.com/snehalbaghel/notice-ui)
+
 ### Setup
 0. MySQL
 1. Install pipenv
